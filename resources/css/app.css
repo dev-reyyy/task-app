@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@import "./components.css";
+@import "./custom.css";
+
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source "../../node_modules/flowbite";
+
+@plugin "flowbite/plugin";
+
+@darkMode: class;
+
+@theme {
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    /* Primary Default (Indigo) */
+    --color-primary-500: #3f51b5;
+
+    /* Tints (lighter) */
+    --color-primary-50: #e8eaf6;
+    --color-primary-100: #c5cae9;
+    --color-primary-200: #9fa8da;
+    --color-primary-300: #7986cb;
+    --color-primary-400: #5c6bc0;
+
+    /* Shades (darker) */
+    --color-primary-600: #3949ab;
+    --color-primary-700: #303f9f;
+    --color-primary-800: #283593;
+    --color-primary-900: #1a237e;
+
+    /* Surface backgrounds for themes */
+    --surface-light: #ffffff;
+    --surface-light-alt: #f5f5f5;
+    --surface-dark: #121212;
+    --surface-dark-alt: #1e1e1e;
+
+    /* Text on surfaces */
+    --text-on-light: #212121;
+    --text-on-dark: #fafafa;
+}
