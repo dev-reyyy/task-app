@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
@@ -21,4 +22,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'mainDashboard'])->name('dashboard.main');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::resource('/tasks', TaskController::class);
 });

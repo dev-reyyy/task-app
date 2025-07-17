@@ -25,7 +25,7 @@
                     <form class="space-y-4 md:space-y-6" action="{{ route('authenticate') }}" method="post">
                         @csrf
                                                 
-                        <x-form.input type="email" label="You email" name="email" placeholder="name@company.com" required/>
+                        <x-form.input type="email" label="Your email" name="email" placeholder="name@company.com" required/>
 
                         <x-form.input type="password" label="Password" name="password" placeholder="••••••••" required/>
 
