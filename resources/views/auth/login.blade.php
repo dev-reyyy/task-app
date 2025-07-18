@@ -22,7 +22,7 @@
                         Sign in to your account
                     </h1>
                     
-                    <form class="space-y-4 md:space-y-6" action="{{ route('authenticate') }}" method="post">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('login.authenticate') }}" method="post">
                         @csrf
                                                 
                         <x-form.input type="email" label="Your email" name="email" placeholder="name@company.com" required/>

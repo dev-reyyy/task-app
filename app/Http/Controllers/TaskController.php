@@ -2,33 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
-use Illuminate\Http\Request;
+use App\Services\TaskService;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
-    public function index()
+    use AuthorizesRequests;
+
+    public function __construct(protected TaskService $taskService)
+    {
+    }
+
+    public function index() 
     {
         $tasks = Task::ownedBy(Auth::id())->latest()->paginate(10);
 
         return view('task.index', compact('tasks'));
     }
 
-    public function create() {
+    public function create() 
+    {
         return view('task.create');
     }
 
-    public function store(Request $request) {
-
-        $taskData = $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'status' => ['required', Rule::in(['not started', 'ongoing', 'complete'])]
-        ]);
-
-        $task = Task::create($taskData + ['created_by' => Auth::id()]);
+    public function store(StoreTaskRequest $request) 
+    {
+        $this->taskService->create($request->validated());
         
         return redirect()->back()->with('toast', [
             'type' => 'success',
@@ -36,23 +39,18 @@ class TaskController extends Controller
         ]);
     }
     
-    public function edit($taskId) {
-        $task = Task::findOrFail($taskId);
+    public function edit(Task $task) 
+    {
+        $this->authorize('update', $task);
 
         return view('task.edit', compact('task'));
     }
 
-    public function update(Request $request, $taskId) {
+    public function update(UpdateTaskRequest $request, Task $task) 
+    {
+        $this->authorize('update', $task);
         
-        $taskData = $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'status' => ['required', Rule::in(['not started', 'ongoing', 'complete'])]
-        ]);
-
-        $task = Task::findOrFail($taskId);
-
-        $updatedTask = $task->update($taskData);
+        $this->taskService->update($task, $request->validated());
         
         return redirect()->back()->with('toast', [
             'type' => 'success',
@@ -60,18 +58,18 @@ class TaskController extends Controller
         ]);
     }
 
-    public function show($taskId) {
-        
-        $task = Task::findOrFail($taskId);
+    public function show(Task $task) 
+    {
+        $this->authorize('view', $task);
 
         return view('task.show', compact('task'));
     }
 
-    public function destroy($taskId) {
-        
-        $task = Task::findOrFail($taskId);
-        
-        $task->delete();
+    public function destroy(Task $task) 
+    {
+        $this->authorize('delete', $task);
+
+        $this->taskService->delete($task);
         
         return redirect()->back()->with('toast', [
             'type' => 'success',

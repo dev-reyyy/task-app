@@ -47,19 +47,19 @@
                             <td class="px-6 py-4 flex gap-4">
                                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                     data-modal-popup="true"
-                                    data-link="{{ route('tasks.edit', $task->id) }}"
+                                    data-link="{{ route('tasks.edit', $task) }}"
                                     data-modal-size="modal-md">
                                     Edit
                                 </a>
                                 
                                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                     data-modal-popup="true"
-                                    data-link="{{ route('tasks.show', $task->id) }}"
+                                    data-link="{{ route('tasks.show', $task) }}"
                                     data-modal-size="modal-md">
                                     Show
                                 </a>
                                 
-                                <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?')">
+                                <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this task?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">

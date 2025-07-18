@@ -43,7 +43,7 @@
                         <a href="#" class="dropdown-item">Settings</a>
                     </li>
                     <li>
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('login.logout') }}">
                             @csrf
                             <button type="submit" class="dropdown-item w-full text-left">
                                 Sign out
